@@ -9,7 +9,7 @@ The slides are available [here](./next-level-k8s-networking-with-cilium.pdf).
 ## Prerequisites
 
 ```shell
-# Create 2 AKS Cluster with no CNI
+# Create 2 AKS clusters with no CNI (BYOCNI)
 cd ./src
 # Login to Azure
 az login
@@ -18,9 +18,9 @@ az account set --subscription <SUBSCRIPTION_ID>
 terraform init
 terraform apply -auto-approve
 # Install Cilium on AKS with BYOCNI
-# Connect to Cluster 1
+# Connect to cluster 01
 az aks get-credentials --resource-group rg-cilium-demo --name aks-cilium-demo-01
-# Install Cilium
+# Install Cilium on cluster 01
 cilium install \
     --datapath-mode aks-byocni \
     --set azure.resourceGroup="rg-cilium-demo" \
@@ -32,9 +32,9 @@ cilium install \
     --set kubeProxyReplacement=strict \
     --set gatewayAPI.enabled=true
 
-# Connect to Cluster 2
+# Connect to cluster 02
 az aks get-credentials --resource-group rg-cilium-demo --name aks-cilium-demo-02
-# Install Cilium
+# Install Cilium on cluster 02
 cilium install \
     --datapath-mode aks-byocni \
     --set azure.resourceGroup="rg-cilium-demo" \
