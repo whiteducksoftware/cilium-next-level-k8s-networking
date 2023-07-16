@@ -1,0 +1,19 @@
+# VS Code
+.vscode
+# Mac OS generated files
+**/.DS_Store
+
+# .terraform directory and plan file
+**/.terraform/*
+**/tfplan.*
+
+# .tfstate files
+**/*.tfstate
+**/*.tfstate.*
+
+# Terraform log file
+**/terraform.log
+
+# .env file
+.env
+.prod
