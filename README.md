@@ -11,15 +11,20 @@ The slides are available [here](./next-level-k8s-networking-with-cilium.pdf).
 ```shell
 # Create 2 AKS clusters with no CNI (BYOCNI)
 cd ./src
+
 # Login to Azure
 az login
 az account set --subscription <SUBSCRIPTION_ID>
+
 # Execute Terraform
 terraform init
 terraform apply -auto-approve
+
 # Install Cilium on AKS with BYOCNI
 # Connect to cluster 01
+
 az aks get-credentials --resource-group rg-cilium-demo --name aks-cilium-demo-01
+
 # Install Cilium on cluster 01
 cilium install \
     --datapath-mode aks-byocni \
@@ -34,6 +39,7 @@ cilium install \
 
 # Connect to cluster 02
 az aks get-credentials --resource-group rg-cilium-demo --name aks-cilium-demo-02
+cd
 # Install Cilium on cluster 02
 cilium install \
     --datapath-mode aks-byocni \
@@ -49,8 +55,8 @@ cilium install \
 
 ## Demo: Hubble in action
 
-Find all details [here](demo/hubble.md).
+Find all details [here](demos/hubble/README.md).
 
 ## Demo: Canary Rollout with Cilium
 
-Find all details [here](demo/servicemesh.md).
+Find all details [here](demos/servicemesh/README.md).
