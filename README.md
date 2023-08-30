@@ -91,4 +91,4 @@ Find all details [here](demos/containerdays/clustermesh/README.md).
 
 ### Demo: Service Mesh
 
-Find all details [here](demos/containerdays/clustermesh/README.md).
+Find all details [here](demos/containerdays/servicemesh/README.md).
