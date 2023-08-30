@@ -1,0 +1,11 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "rebel-default-deny"
+spec:
+  description: "Default-deny ingress policy for the rebel-base"
+  endpointSelector:
+    matchLabels:
+      name: rebel-base
+  ingress:
+  - {}

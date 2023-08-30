@@ -1,0 +1,58 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fred
+  labels:
+    app.kubernetes.io/name: fred
+  annotations:
+     service.cilium.io/global: "true"
+     service.cilium.io/affinity: "local"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: fred
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fred
+  labels:
+    app.kubernetes.io/name: fred
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fred
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fred
+    spec:
+      securityContext:
+        {}
+      containers:
+        - name: fred
+          securityContext:
+            {}
+          image: "ghcr.io/whiteducksoftware/sample-mvc:fred"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
