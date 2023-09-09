@@ -6,6 +6,9 @@
 # Create namespace fred
 kubectl create ns fred
 
+# Set fred as default namespace
+kubectl config set-context --current --namespace=fred
+
 # Create the Gateway
 kubectl apply -f ./files/gateway.yaml --context aks-cilium-demo-01
 

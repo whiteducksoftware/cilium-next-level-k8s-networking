@@ -6,6 +6,9 @@
 # Create rebels namespace in both clusters
 kubectl create ns rebels
 
+# Set demo as rebels namespace
+kubectl config set-context --current --namespace=rebels
+
 # Connect to cluster01 and apply the following manifest
 kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/main/examples/kubernetes/clustermesh/global-service-example/cluster1.yaml
 
