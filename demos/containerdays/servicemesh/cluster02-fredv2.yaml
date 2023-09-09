@@ -68,7 +68,7 @@ spec:
                   key: TextUrl
           securityContext:
             {}
-          image: "ghcr.io/whiteducksoftware/sample-mvc:fred-pirate"
+          image: "ghcr.io/whiteducksoftware/sample-mvc:fred-kube"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
