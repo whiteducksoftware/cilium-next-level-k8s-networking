@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: fred
+  namespace: fred
   labels:
     app.kubernetes.io/name: fred
   annotations:
@@ -22,6 +23,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fred
+  namespace: fred
   labels:
     app.kubernetes.io/name: fred
 spec:

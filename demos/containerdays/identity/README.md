@@ -12,7 +12,7 @@ kubectl create ns demo
 # Set demo as default namespace
 kubectl config set-context --current --namespace=demo
 
-# Install the Star-Warss demo application into the demo namespace
+# Install the Star-Wars demo application into the demo namespace
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/HEAD/examples/minikube/http-sw-app.yaml
 ```
 
