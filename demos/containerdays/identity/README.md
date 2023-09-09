@@ -6,7 +6,7 @@
 # Port-forward to access the Hubble API
 cilium hubble port-forward&
 
-# Install the Star-Warss demo application into the demo namespace
+# Install the Star-Wars demo application into the demo namespace
 kubectl create -f https://raw.githubusercontent.com/cilium/cilium/HEAD/examples/minikube/http-sw-app.yaml
 ```
 
