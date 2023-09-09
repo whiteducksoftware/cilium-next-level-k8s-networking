@@ -81,6 +81,8 @@ Find all details [here](demos/kcd_munich/servicemesh/README.md).
 
 ### Slides
 
+The slides are available [here](demos/containerdays/cds23-next-level-k8s-networking-with-cilium.pdf).
+
 ### Demo: Cilium Identity & Hubble
 
 Find all details [here](demos/containerdays/identity/README.md).
