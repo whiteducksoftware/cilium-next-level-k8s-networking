@@ -20,30 +20,27 @@ kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/main/examples/k
 
 ```shell
 # Connect to Cluster01 and connect to the rebel-base
-kubectl exec x-wing -- curl -s rebel-base.rebels.svc.cluster.local/index.html
+kubectl --context aks-cilium-demo-01 -n rebels exec x-wing-7989c68c5c-9p4bj -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 
 # Scale down the x-wing deployment
-kubectl scale deployment rebel-base --replicas 0
+kubectl --context aks-cilium-demo-01 -n rebels scale deployment rebel-base --replicas 0
 
 # Connect to the rebel-base again
-kubectl exec x-wing -- curl -s rebel-base.rebels.svc.cluster.local/index.html
+kubectl --context aks-cilium-demo-01 -n rebels exec x-wing-7989c68c5c-9p4bj -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 ```
 
 ## Bonus: Cluster Mesh Network Policy
 
 ```shell
-# Connect to Cluster01 and apply the deny-all policy
-kubectl apply -f deny-all.yaml
-
 # Connect to Cluster02 and apply the deny-all policy
-kubectl apply -f deny-all.yaml
+kubectl --context aks-cilium-demo-02 -n rebels apply -f deny-all.yaml
 
 # Try contact the rebel-base again
-kubectl exec x-wing -- curl -s rebel-base.rebels.svc.cluster.local/index.html
+kubectl --context aks-cilium-demo-01 -n rebels exec x-wing-7989c68c5c-9p4bj -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 
 # Apply the allow policy in Cluster02
-kubectl apply -f allow-cross-cluster.yaml
+kubectl --context aks-cilium-demo-02 -n rebels apply -f allow-cross-cluster.yaml
 
 # Contact the rebel-base again
-kubectl exec x-wing -- curl -s rebel-base.rebels.svc.cluster.local/index.html
+kubectl --context aks-cilium-demo-01 -n rebels exec x-wing-7989c68c5c-9p4bj -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 ```
