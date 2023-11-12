@@ -11,7 +11,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   location               = var.location
   resource_group_name    = azurerm_resource_group.core.name
   dns_prefix             = "${azurecaf_name.aks.result}-${each.key}"
-  kubernetes_version     = "1.25.6"
+  kubernetes_version     = "1.27.3"
   local_account_disabled = "true"
   tags                   = local.common_tags
 

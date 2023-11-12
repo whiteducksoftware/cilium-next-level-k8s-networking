@@ -1,0 +1,27 @@
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-cross-cluster"
+spec:
+  description: "Allow x-wing in Cluster01 to contact to rebel-base in Cluster02"
+  endpointSelector:
+    matchLabels:
+      name: rebel-base
+      io.cilium.k8s.policy.cluster: aks-cilium-demo-02
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        name: x-wing
+        io.cilium.k8s.policy.cluster: aks-cilium-demo-01
+    toPorts:
+    - ports:
+      - port: "80"
+        protocol: TCP
+  - fromEndpoints:
+    - matchLabels:
+        name: x-wing
+        io.cilium.k8s.policy.cluster: aks-cilium-demo-02
+    toPorts:
+    - ports:
+      - port: "80"
+        protocol: TCP

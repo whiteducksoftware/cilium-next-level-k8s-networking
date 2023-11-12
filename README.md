@@ -21,14 +21,19 @@ terraform apply -auto-approve
 az aks get-credentials --resource-group rg-cilium-demo --name aks-cilium-demo-01
 
 # Install Gateway API CRDs
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.0/config/crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.0/config/crd/standard/gateway.networking.k8s.io_gateways.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.0/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.0/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v0.7.0/config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.0.0/standard-install.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/main/config/crd/experimental/gateway.networking.k8s.io_tlsroutes.yaml
+
+# Install Cert-Manager
+helm upgrade \
+  --install cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}" \
+  --set installCRDs=true
 
 # Install Cilium on cluster 01
-cilium upgrade \
+cilium install \
     --datapath-mode aks-byocni \
     --set azure.resourceGroup="rg-cilium-demo" \
     --set cluster.id=1 \
@@ -51,8 +56,7 @@ cilium install \
     --set ipam.operator.clusterPoolIPv4PodCIDRList='{10.20.0.0/16}' \
     --set hubble.relay.enabled=true \
     --set hubble.ui.enabled=true \
-    --set kubeProxyReplacement=strict \
-    --set gatewayAPI.enabled=true
+    --set kubeProxyReplacement=strict
 
 # Enable Cluster Mesh on each cluster
 cilium clustermesh enable
@@ -94,3 +98,21 @@ Find all details [here](demos/containerdays/clustermesh/README.md).
 ### Demo: Service Mesh
 
 Find all details [here](demos/containerdays/servicemesh/README.md).
+
+## Continous Lifecycle / Container Conf 2023
+
+### Slides
+
+The slides are available [here](demos/containerconf/containerconf-next-level-k8s-networking-with-cilium.pdf).
+
+### Demo: Cilium Identity & Hubble
+
+Find all details [here](demos/containerconf/identity/README.md).
+
+### Demo: Cluster Mesh
+
+Find all details [here](demos/containerconf/clustermesh/README.md).
+
+### Demo: Service Mesh
+
+Find all details [here](demos/containerconf/servicemesh/README.md).
