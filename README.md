@@ -1,4 +1,4 @@
-# Cilium & AKS Workshop Day
+# Cilium Next Level K8s Networking
 
 This repository contains the material for our Next-level Kubernetes networking ​with Cilium talk.
 
