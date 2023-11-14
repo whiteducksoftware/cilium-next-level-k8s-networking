@@ -3,9 +3,6 @@
 ## Prerequisites
 
 ```shell
-# Port-forward to access the Hubble API
-cilium --context aks-cilium-demo-01 hubble port-forward&
-
 # Create namespace demo
 kubectl --context aks-cilium-demo-01 create ns demo
 
@@ -16,6 +13,8 @@ kubectl --context aks-cilium-demo-01 -n demo create -f https://raw.githubusercon
 ## Demo
 
 ```shell
+# Port-forward to access the Hubble API
+cilium --context aks-cilium-demo-01 hubble port-forward&
 
 # Test access to the Death Star
 kubectl --context aks-cilium-demo-01 -n demo exec tiefighter -- curl -s -XPOST deathstar.demo.svc.cluster.local/v1/request-landing
