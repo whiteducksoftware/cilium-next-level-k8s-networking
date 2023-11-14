@@ -27,11 +27,11 @@ kubectl --context aks-cilium-demo-02 -n rebels \
 ```shell
 # connect to the rebel-base
 kubectl --context aks-cilium-demo-01 -n rebels \
-  exec $(kubectl --context aks-cilium-demo-01 -n rebels get pod -l "name=x-wing" -o jsonpath='{.items[0].metadata.name}') \
+  exec deployments/x-wing \
   -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 
 kubectl --context aks-cilium-demo-02 -n rebels \
-  exec $(kubectl --context aks-cilium-demo-02 -n rebels get pod -l "name=x-wing" -o jsonpath='{.items[0].metadata.name}') \
+  exec deployments/x-wing \
   -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 
 # Scale down the x-wing deployment
@@ -39,7 +39,7 @@ kubectl --context aks-cilium-demo-01 -n rebels scale deployment rebel-base --rep
 
 # Connect to the rebel-base again
 kubectl --context aks-cilium-demo-01 -n rebels \
-  exec $(kubectl --context aks-cilium-demo-01 -n rebels get pod -l "name=x-wing" -o jsonpath='{.items[0].metadata.name}') \
+  exec deployments/x-wing \
   -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 ```
 
@@ -54,7 +54,7 @@ kubectl --context aks-cilium-demo-01 -n rebels get ciliumnetworkpolicies.cilium.
 
 # Try contact the rebel-base again
 kubectl --context aks-cilium-demo-01 -n rebels \
-  exec $(kubectl --context aks-cilium-demo-01 -n rebels get pod -l "name=x-wing" -o jsonpath='{.items[0].metadata.name}') \
+  exec deployments/x-wing \
   -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 
 # Apply the allow policy in Cluster02
@@ -65,6 +65,6 @@ kubectl --context aks-cilium-demo-01 -n rebels get ciliumnetworkpolicies.cilium.
 
 # Contact the rebel-base again
 kubectl --context aks-cilium-demo-01 -n rebels \
-  exec $(kubectl --context aks-cilium-demo-01 -n rebels get pod -l "name=x-wing" -o jsonpath='{.items[0].metadata.name}') \
+  exec deployments/x-wing \
   -- curl -s rebel-base.rebels.svc.cluster.local/index.html
 ```
