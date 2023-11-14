@@ -8,12 +8,18 @@ kubectl --context aks-cilium-demo-01 create ns rebels
 kubectl --context aks-cilium-demo-02 create ns rebels
 
 # Connect to cluster01 and apply the following manifest
-kubectl --context aks-cilium-demo-02 apply -n rebels \
-  -f https://raw.githubusercontent.com/cilium/cilium/main/examples/kubernetes/clustermesh/global-service-example/cluster1.yaml
+kubectl --context aks-cilium-demo-01 -n rebels \
+  apply -f https://raw.githubusercontent.com/cilium/cilium/main/examples/kubernetes/clustermesh/global-service-example/cluster1.yaml
+
+kubectl --context aks-cilium-demo-01 -n rebels \
+   annotate service rebel-base service.cilium.io/affinity="local" --overwrite
 
 # Connect to cluster02 and apply the following manifest
-kubectl --context aks-cilium-demo-02 apply -n rebels \
-  -f https://raw.githubusercontent.com/cilium/cilium/main/examples/kubernetes/clustermesh/global-service-example/cluster2.yaml
+kubectl --context aks-cilium-demo-02 -n rebels \
+  apply -f https://raw.githubusercontent.com/cilium/cilium/main/examples/kubernetes/clustermesh/global-service-example/cluster2.yaml
+
+kubectl --context aks-cilium-demo-02 -n rebels \
+   annotate service rebel-base service.cilium.io/affinity="local" --overwrite
 ```
 
 ## Demo: Global Service
