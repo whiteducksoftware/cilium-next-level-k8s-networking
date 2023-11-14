@@ -27,11 +27,18 @@ hubble observe --namespace demo --port 80
 
 # View Identity with K8s CRDs
 kubectl --context aks-cilium-demo-01 get ciliumidentities.cilium.io --show-labels
-kubectl --context aks-cilium-demo-01 get ciliumidentities.cilium.io <IDENTITY_ID> -o yaml | yq
+kubectl --context aks-cilium-demo-01 get ciliumidentities.cilium.io 95794 -o yaml | yq
 
 # View Identity with Cilium CLI on Cilium Agents
-kubectl --context aks-cilium-demo-01 -n kube-system exec -c cilium-agent cilium-bb6pv -- cilium identity list
-kubectl --context aks-cilium-demo-01 -n kube-system exec -c cilium-agent cilium-bb6pv -- cilium identity get 95794
+kubectl --context aks-cilium-demo-01 -n kube-system \
+  exec daemonset/cilium \
+  -c cilium-agent \
+  -- cilium identity list
+
+kubectl --context aks-cilium-demo-01 -n kube-system \
+  exec daemonset/cilium \
+  -c cilium-agent \
+  -- cilium identity get 95794
 
 # Open the Hubble UI in your browser
 cilium --context aks-cilium-demo-01 hubble ui
@@ -55,8 +62,17 @@ kubectl --context aks-cilium-demo-01 -n demo exec xwing -- curl -s -XPOST deaths
 
 # View the CiliumNetworkPolicy
 kubectl --context aks-cilium-demo-01 -n demo get cnp rule1 -o yaml | yq
-kubectl --context aks-cilium-demo-01 -n kube-system exec -it -c cilium-agent cilium-bb6pv -- cilium policy get
-kubectl --context aks-cilium-demo-01 -n kube-system exec -it -c cilium-agent cilium-bb6pv -- cilium policy selectors
+
+kubectl --context aks-cilium-demo-01 -n kube-system \
+  exec daemonset/cilium \
+  -c cilium-agent \
+  -- cilium policy get
+
+kubectl --context aks-cilium-demo-01 -n kube-system \
+  exec daemonset/cilium \
+  -c cilium-agent \
+  -- cilium policy selectors
+
 ```
 
 ## Bonus: Layer 7 Protocol Visibility
