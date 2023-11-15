@@ -50,7 +50,7 @@ kubectl --context aks-cilium-demo-01 -n rebels \
 kubectl --context aks-cilium-demo-02 -n rebels apply -f deny-all.yaml
 
 # Inspect network policy
-kubectl --context aks-cilium-demo-01 -n rebels get ciliumnetworkpolicies.cilium.io rebel-default-deny -o yaml | yq
+kubectl --context aks-cilium-demo-02 -n rebels get ciliumnetworkpolicies.cilium.io rebel-default-deny -o yaml | yq
 
 # Try contact the rebel-base again
 kubectl --context aks-cilium-demo-01 -n rebels \
@@ -61,7 +61,7 @@ kubectl --context aks-cilium-demo-01 -n rebels \
 kubectl --context aks-cilium-demo-02 -n rebels apply -f allow-cross-cluster.yaml
 
 # Inspect network policy
-kubectl --context aks-cilium-demo-01 -n rebels get ciliumnetworkpolicies.cilium.io allow-cross-cluster -o yaml | yq
+kubectl --context aks-cilium-demo-02 -n rebels get ciliumnetworkpolicies.cilium.io allow-cross-cluster -o yaml | yq
 
 # Contact the rebel-base again
 kubectl --context aks-cilium-demo-01 -n rebels \
